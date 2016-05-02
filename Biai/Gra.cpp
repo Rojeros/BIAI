@@ -23,7 +23,7 @@ int Gra::rozegrajGre(Wiezien & ob1, Wiezien & ob2)
 				ob2.wynik(REMIS_WSPOLPRACA);
 			}
 			else {
-				if ((wyn1 == ZDRADA) && (wyn1 == WSPOLPRACA)) {
+				if ((wyn1 == ZDRADA) && (wyn2 == WSPOLPRACA)) {
 					ob1.wynik(WYGRANA_ZDRADA);
 					ob2.wynik(PRZEGRANA_WSPOLPRACA);
 				}
@@ -67,11 +67,10 @@ int Gra::zapiszChromosomy()
 	}
 
 	plik << std::to_string(liczbaGraczy) << "\n";
-	std::list<Wiezien>::iterator iter = tablica.begin();
-
+	
 	for (int i = 0; i < liczbaGraczy; i++) {
-		plik << iter->zapisz() << "\n";
-		iter++;
+		plik << tablica[i].zapisz() << "\n";
+		
 	}
 	plik.close();
 
@@ -136,34 +135,29 @@ int Gra::wczytajChromosomy(std::string sciezka)
 
 int Gra::start(Gra * wskaznik)
 {
-	Porownaj p;
-	for (std::list<Wiezien>::iterator iter = wskaznik->tablica.begin(); iter != wskaznik->tablica.end(); ++iter) {
-		this->tablica.push_back(*iter);
-	}
-	std::list<Wiezien>::iterator iteri = this->tablica.begin();
-	std::list<Wiezien>::iterator iterj = this->tablica.begin();
-	std::list<Wiezien>::iterator iterKoni = this->tablica.end();
-	std::list<Wiezien>::iterator iterKonj = this->tablica.end();
-	iterKonj--;
-	iteri++;
-	for (iterj = this->tablica.begin(); iterj != iterKonj; ++iterj) {
 
-		for (iteri = this->tablica.begin(); iteri != iterKoni; ++iteri) {
-			this->rozegrajGre(*iterj, *iteri);
+
+	for (int i=0; i < liczbaGraczy; i++) {
+		this->tablica[i] = wskaznik->tablica[i];
+	}
+	for (int i = 0; i < liczbaGraczy-1; i++) {
+		for (int j = i+1; j < liczbaGraczy; j++) {
+
+					this->rozegrajGre(this->tablica[i], this->tablica[j]);
 
 		}
 	}
+	int kon;
+	//sortowanie
+	std::sort(this->tablica.begin(), this->tablica.begin()+ liczbaGraczy);
 
-	tablica.sort(p);
-	iteri = this->tablica.begin();
-	raport.push_back(iteri->srednia);
+	for (int i = 0; i < liczbaGraczy; i++) {
+		kon=this->tablica[i].counter;
+		
+	}
+
+	this->raport.push_back(this->tablica[0].srednia);
 	this->zapiszChromosomy();
 	return 0;
 }
 
-bool Porownaj::operator()(Wiezien & t1, Wiezien & t2)
-{
-	//kolejnoœæ -rosnaco
-	if (t1.srednia < t2.srednia) return true;
-	if (t1.srednia > t2.srednia) return false;
-};

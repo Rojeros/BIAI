@@ -83,7 +83,7 @@ int Wiezien::wynik(int a)
 {
 	this->suma += a;
 	counter++;
-	if ((counter % (4 * liczbaGraczy)) == 0)
+	if ((counter % (4 * (liczbaGraczy-1))) == 0)
 		srednia = (double)suma / (double)liczbaGraczy;
 	return 0;
 }

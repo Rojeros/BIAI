@@ -9,21 +9,22 @@ konstruktor kopiuj¹cy, przypisanie, mniejszoœæ
 #pragma once
 #include "Wiezien.h"
 #include "Gra.h"
-#include <list>
+#include <vector>
 #include <fstream>
 #include <cstddef>
 
-struct Porownaj
-{
-	bool operator()(Wiezien & t1, Wiezien & t2);
-};
+
 class Gra
 {
 public:
-	std::list <Wiezien>tablica;
-	std::list <int>raport;
+	std::vector <Wiezien>tablica;
+	std::vector <double>raport;
 public:
-	Gra() {}
+	Gra() {
+		tablica.reserve(liczbaGraczy);
+		raport.reserve(liczbaGraczy);
+
+	}
 	int losowaPopulacja(){
 		for (int i = 0; i < liczbaGraczy;i++)
 		tablica.push_back(Wiezien());
@@ -33,11 +34,14 @@ public:
 		wczytajChromosomy(a);
 		return 0;
 	};
-	~Gra() { tablica.clear(); };
+	~Gra() { 
+		tablica.clear();
+		raport.clear();
+	};
 	int rozegrajGre(Wiezien & ob1, Wiezien & ob2);
 	int zapiszChromosomy();
 	int wczytajChromosomy(std::string a);
 	int start(Gra * wskaznik);
-
+	
 };
 

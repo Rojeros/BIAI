@@ -12,6 +12,8 @@ GUI
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 #include <string>
+#include <algorithm>
+
 //Globals:
 #define REMIS_WSPOLPRACA 3
 #define REMIS_ZDRADA 1
@@ -32,7 +34,7 @@ extern int liczbaPowtorzen;
 
 class Wiezien
 {
-protected:
+public:
 	double suma;
 	int gracze;
 	int counter;
@@ -59,4 +61,34 @@ public:
 		}
 	}
 	~Wiezien() {};
+	Wiezien & Wiezien::operator =(const Wiezien & prawy)
+	{
+		
+			for (int i = 0; i < 85;i++)
+			this->chromosom[i] = prawy.chromosom[i];
+			this->counter = prawy.counter;
+			this->gracze = prawy.gracze;
+			this->ruch = prawy.ruch;
+			this->srednia = prawy.srednia;
+			this->suma = prawy.suma;
+			
+		
+		return *this;
+	}
+	Wiezien(const Wiezien& os) {
+		for (int i = 0; i < 85; i++)
+			this->chromosom[i] = os.chromosom[i];
+		this->counter = os.counter;
+		this->gracze = os.gracze;
+		this->ruch = os.ruch;
+		this->srednia = os.srednia;
+		this->suma = os.suma;
+	}
+	bool Wiezien::operator <(const Wiezien & dane) const
+	{
+
+		if (dane.srednia < this->srednia) return false;
+		if (dane.srednia > this->srednia) return true;
+		return false;
+	}
 };

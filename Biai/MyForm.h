@@ -411,6 +411,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 		szansaMut= (int)(1/Decimal::ToDouble(boxMutationChance->Value));
 		szansaKrzyz= (int)(1 / Decimal::ToDouble(numericUpDown1->Value));
 		Gra nowy;
+		nowy.losowaPopulacja();
 		nowy.start(wsk);
 }
 private: System::Void label6_Click(System::Object^  sender, System::EventArgs^  e) {
