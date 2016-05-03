@@ -9,6 +9,9 @@ int pozycjaKrzyz = 0;
 int liczbaGraczy = 2;
 int liczbaPokolen = 0;
 int liczbaPowtorzen = 1;
+bool cross50 = false;
+bool cross33 = false;
+bool crossR = false;
 Gra * wsk;
 
 using namespace System;

@@ -45,18 +45,18 @@ int Gra::rozegrajGre(Wiezien & ob1, Wiezien & ob2)
 int Gra::zapiszChromosomy()
 {
 	int j = 0;
-	std::string sciezka="chromosom.txt";
+	std::string sciezka = "chromosom.txt";
 	std::ofstream plik;
 	std::fstream plik2;
 	plik2.open(sciezka, std::ios::in | std::ios::_Nocreate);
 	do {
 		plik2.close();
-			
-			sciezka = "chromosom";
-			sciezka += std::to_string(j);
-			sciezka += ".txt";
-			plik2.open(sciezka, std::ios::in | std::ios::_Nocreate);
-			j++;
+
+		sciezka = "chromosom";
+		sciezka += std::to_string(j);
+		sciezka += ".txt";
+		plik2.open(sciezka, std::ios::in | std::ios::_Nocreate);
+		j++;
 
 	} while ((plik2.is_open() == true) && (j < 200));
 	plik2.close();
@@ -67,14 +67,14 @@ int Gra::zapiszChromosomy()
 	}
 
 	plik << std::to_string(liczbaGraczy) << "\n";
-	
+
 	for (int i = 0; i < liczbaGraczy; i++) {
 		plik << tablica[i].zapisz() << "\n";
-		
+
 	}
 	plik.close();
 
-return 0;
+	return 0;
 }
 
 int Gra::wczytajChromosomy(std::string sciezka)
@@ -98,7 +98,6 @@ int Gra::wczytajChromosomy(std::string sciezka)
 
 
 			for (int i = 0; i < napis.length(); i++) {
-				//sprawdzic dzialanie
 				if (i >= 0 && i < 85) {
 					if (napis[i] == '1') {
 						tmp[i] = 1;
@@ -137,27 +136,107 @@ int Gra::start(Gra * wskaznik)
 {
 
 
-	for (int i=0; i < liczbaGraczy; i++) {
+	for (int i = 0; i < liczbaGraczy; i++) {
 		this->tablica[i] = wskaznik->tablica[i];
 	}
-	for (int i = 0; i < liczbaGraczy-1; i++) {
-		for (int j = i+1; j < liczbaGraczy; j++) {
 
-					this->rozegrajGre(this->tablica[i], this->tablica[j]);
+	for (int i = 0; i < liczbaPokolen; i++) {
+		for (int i = 0; i < liczbaGraczy - 1; i++) {
+			for (int j = i + 1; j < liczbaGraczy; j++) {
+
+				this->rozegrajGre(this->tablica[i], this->tablica[j]);
+
+			}
+		}
+
+		//sortowanie
+		std::sort(this->tablica.begin(), this->tablica.begin() + liczbaGraczy);
+
+		this->algorytmGenetyczny();
+
+		this->raport.push_back(this->tablica[0].srednia);
+		for (int i = 0; i < liczbaGraczy; i++) {
+			this->tablica[i].counter = 0;
+			this->tablica[i].ruch = 0;
+			//this->tablica[i].srednia = 0;
+			this->tablica[i].suma = 0;
+		}
+
+
+
+	}
+	for (int i = 0; i < liczbaGraczy - 1; i++) {
+		for (int j = i + 1; j < liczbaGraczy; j++) {
+
+			this->rozegrajGre(this->tablica[i], this->tablica[j]);
 
 		}
 	}
-	int kon;
-	//sortowanie
-	std::sort(this->tablica.begin(), this->tablica.begin()+ liczbaGraczy);
 
-	for (int i = 0; i < liczbaGraczy; i++) {
-		kon=this->tablica[i].counter;
-		
+	//sortowanie
+	std::sort(this->tablica.begin(), this->tablica.begin() + liczbaGraczy);
+	this->raport.push_back(this->tablica[0].srednia);
+
+
+	this->zapiszChromosomy();
+
+	return 0;
+}
+
+int Gra::algorytmGenetyczny()
+{
+
+	if (cross50 == true) {
+
+		int srodek = int(liczbaGraczy / 2);
+		for (int i = 0; i < srodek; i++) {
+			tablica[i].krzyzowanie(&(tablica[i + 1]));
+			i++;
+
+		}
+
+	}
+	if (cross33 == true) {
+		int srodek = int(liczbaGraczy / 3);
+
+		for (int i = 0; i < srodek; i++) {
+			tablica[i].krzyzowanie(&(tablica[i + 1]));
+			i++;
+		}
+		for (int i = 0; i < (srodek - i); i++) {
+			tablica[(srodek - i)].krzyzowanie(&(tablica[i]));
+
+		}
+		srodek *= 2;
+		for (int i = srodek / 2; i < srodek; i++) {
+			tablica[i].krzyzowanie(&(tablica[i + 1]));
+			i++;
+
+		}
+
+
+
+	}
+	if (crossR == true) {
+
+		int krzyz1;
+		int krzyz2;
+		for (int i = 0; i < liczbaGraczy; i++) {
+			if (rand() % szansaKrzyz == 0) {
+				krzyz1 = (rand() % liczbaGraczy);
+				krzyz2 = (rand() % liczbaGraczy);
+				if (krzyz1 != krzyz2)
+					tablica[krzyz1].krzyzowanie(&(tablica[krzyz2]));
+
+			}
+
+		}
+
 	}
 
-	this->raport.push_back(this->tablica[0].srednia);
-	this->zapiszChromosomy();
+	for (int i = 0; i < liczbaGraczy; i++)
+		tablica[i].mutacja();
+
 	return 0;
 }
 

@@ -58,23 +58,33 @@ bool Wiezien::gra(Wiezien & obj, int tura,int r2)
 	return false;
 }
 
-void Wiezien::krzyzowanie(Wiezien & obj)
+void Wiezien::krzyzowanie(Wiezien * obj)
 {
-
-	for (int i = 0; i < pozycjaKrzyz; i++)
-		this->chromosom[i] = obj.chromosom[i];
-
-	for (int i = pozycjaKrzyz; i < 85; i++)
-		obj.chromosom[i] = this->chromosom[i];
+	bool tmp=false;
+	for (int i = 0; i <= pozycjaKrzyz; i++) {
+		tmp = this->chromosom[i];
+		this->chromosom[i] = obj->chromosom[i];
+		obj->chromosom[i] = tmp;
+	}
+	
 
 
 }
 
 int Wiezien::mutacja()
 {
-	if (rand() % szansaMut == 0) {
-		chromosom[pozycjaMut] = !chromosom[pozycjaMut];
-		return 1;
+	if (pozycjaMut == 0) {
+		for (int i = 0; i < 85; i++) {
+			if (rand() % szansaMut == 0) {
+				chromosom[i] = !chromosom[i];
+			}
+		}
+	}
+	else {
+		if (rand() % szansaMut == 0) {
+			chromosom[pozycjaMut] = !chromosom[pozycjaMut];
+			return 1;
+		}
 	}
 	return 0;
 }
@@ -84,6 +94,6 @@ int Wiezien::wynik(int a)
 	this->suma += a;
 	counter++;
 	if ((counter % (4 * (liczbaGraczy-1))) == 0)
-		srednia = (double)suma / (double)liczbaGraczy;
+		srednia = (double)suma / (double)(liczbaGraczy-1);
 	return 0;
 }

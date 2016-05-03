@@ -42,6 +42,6 @@ public:
 	int zapiszChromosomy();
 	int wczytajChromosomy(std::string a);
 	int start(Gra * wskaznik);
-	
+	int algorytmGenetyczny();
 };
 

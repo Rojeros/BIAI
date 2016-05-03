@@ -89,10 +89,13 @@ namespace Biai {
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->radioButton3 = (gcnew System::Windows::Forms::RadioButton());
 			this->radioButton2 = (gcnew System::Windows::Forms::RadioButton());
 			this->radioButton1 = (gcnew System::Windows::Forms::RadioButton());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->numericUpDown1 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->boxMutationsPlace = (gcnew System::Windows::Forms::NumericUpDown());
@@ -106,18 +109,15 @@ namespace Biai {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->boxPlayer = (gcnew System::Windows::Forms::NumericUpDown());
 			this->button3 = (gcnew System::Windows::Forms::Button());
-			this->radioButton3 = (gcnew System::Windows::Forms::RadioButton());
-			this->numericUpDown1 = (gcnew System::Windows::Forms::NumericUpDown());
-			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->boxMutationsPlace))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->boxMutationChance))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->boxCrossing))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->boxGenerations))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->boxRepetitions))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->boxPlayer))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// button1
@@ -152,14 +152,27 @@ namespace Biai {
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Crossing methods";
 			// 
+			// radioButton3
+			// 
+			this->radioButton3->AutoSize = true;
+			this->radioButton3->Location = System::Drawing::Point(24, 69);
+			this->radioButton3->Name = L"radioButton3";
+			this->radioButton3->Size = System::Drawing::Size(60, 17);
+			this->radioButton3->TabIndex = 2;
+			this->radioButton3->TabStop = true;
+			this->radioButton3->Text = L"random";
+			this->radioButton3->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->radioButton3->UseVisualStyleBackColor = true;
+			// 
 			// radioButton2
 			// 
 			this->radioButton2->AutoSize = true;
+			this->radioButton2->Checked = true;
 			this->radioButton2->Location = System::Drawing::Point(24, 23);
 			this->radioButton2->Name = L"radioButton2";
 			this->radioButton2->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->radioButton2->Size = System::Drawing::Size(60, 17);
-			this->radioButton2->TabIndex = 1;
+			this->radioButton2->TabIndex = 0;
 			this->radioButton2->TabStop = true;
 			this->radioButton2->Text = L"50 / 50";
 			this->radioButton2->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -171,8 +184,7 @@ namespace Biai {
 			this->radioButton1->Location = System::Drawing::Point(24, 46);
 			this->radioButton1->Name = L"radioButton1";
 			this->radioButton1->Size = System::Drawing::Size(92, 17);
-			this->radioButton1->TabIndex = 0;
-			this->radioButton1->TabStop = true;
+			this->radioButton1->TabIndex = 1;
 			this->radioButton1->Text = L"1:3 / 1:3 / 1:3";
 			this->radioButton1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			this->radioButton1->UseVisualStyleBackColor = true;
@@ -208,6 +220,26 @@ namespace Biai {
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"Population";
 			this->groupBox2->Enter += gcnew System::EventHandler(this, &MyForm::groupBox2_Enter);
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(221, 47);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(87, 13);
+			this->label6->TabIndex = 18;
+			this->label6->Text = L"Crossing Chance";
+			this->label6->Click += gcnew System::EventHandler(this, &MyForm::label6_Click);
+			// 
+			// numericUpDown1
+			// 
+			this->numericUpDown1->DecimalPlaces = 3;
+			this->numericUpDown1->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 196608 });
+			this->numericUpDown1->Location = System::Drawing::Point(221, 63);
+			this->numericUpDown1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->numericUpDown1->Name = L"numericUpDown1";
+			this->numericUpDown1->Size = System::Drawing::Size(58, 20);
+			this->numericUpDown1->TabIndex = 17;
 			// 
 			// label7
 			// 
@@ -329,37 +361,6 @@ namespace Biai {
 			this->button3->UseVisualStyleBackColor = true;
 			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
 			// 
-			// radioButton3
-			// 
-			this->radioButton3->AutoSize = true;
-			this->radioButton3->Location = System::Drawing::Point(24, 69);
-			this->radioButton3->Name = L"radioButton3";
-			this->radioButton3->Size = System::Drawing::Size(60, 17);
-			this->radioButton3->TabIndex = 2;
-			this->radioButton3->TabStop = true;
-			this->radioButton3->Text = L"random";
-			this->radioButton3->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			this->radioButton3->UseVisualStyleBackColor = true;
-			// 
-			// numericUpDown1
-			// 
-			this->numericUpDown1->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 196608 });
-			this->numericUpDown1->Location = System::Drawing::Point(221, 63);
-			this->numericUpDown1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-			this->numericUpDown1->Name = L"numericUpDown1";
-			this->numericUpDown1->Size = System::Drawing::Size(58, 20);
-			this->numericUpDown1->TabIndex = 17;
-			// 
-			// label6
-			// 
-			this->label6->AutoSize = true;
-			this->label6->Location = System::Drawing::Point(221, 47);
-			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(87, 13);
-			this->label6->TabIndex = 18;
-			this->label6->Text = L"Crossing Chance";
-			this->label6->Click += gcnew System::EventHandler(this, &MyForm::label6_Click);
-			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -374,19 +375,20 @@ namespace Biai {
 			this->groupBox1->PerformLayout();
 			this->groupBox2->ResumeLayout(false);
 			this->groupBox2->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->boxMutationsPlace))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->boxMutationChance))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->boxCrossing))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->boxGenerations))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->boxRepetitions))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->boxPlayer))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		liczbaGraczy = Decimal::ToInt32(boxPlayer->Value);
+		if(wsk!=NULL)wsk->~Gra();
 		wsk->losowaPopulacja();
 		wsk->zapiszChromosomy();
 	}
@@ -410,9 +412,14 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 		liczbaPowtorzen=Decimal::ToInt32(boxRepetitions->Value);
 		szansaMut= (int)(1/Decimal::ToDouble(boxMutationChance->Value));
 		szansaKrzyz= (int)(1 / Decimal::ToDouble(numericUpDown1->Value));
-		Gra nowy;
-		nowy.losowaPopulacja();
-		nowy.start(wsk);
+		cross50 = radioButton2->Checked;
+		cross33 = radioButton1->Checked;
+		crossR = radioButton3->Checked;
+		for (int i = 0; i < liczbaPowtorzen; i++) {
+			Gra nowy;
+			nowy.losowaPopulacja();
+			nowy.start(wsk);
+		}
 }
 private: System::Void label6_Click(System::Object^  sender, System::EventArgs^  e) {
 }

@@ -15,12 +15,13 @@ GUI
 #include <algorithm>
 
 //Globals:
-#define REMIS_WSPOLPRACA 3
-#define REMIS_ZDRADA 1
+#define REMIS_WSPOLPRACA 1
+#define REMIS_ZDRADA 3
 #define PRZEGRANA_WSPOLPRACA 5
 #define WYGRANA_ZDRADA 0
 #define ZDRADA true
 #define WSPOLPRACA false
+
 
 extern int pozycjaMut;
 extern int szansaMut;
@@ -29,7 +30,9 @@ extern int pozycjaKrzyz;
 extern int liczbaGraczy;
 extern int liczbaPokolen;
 extern int liczbaPowtorzen;
-
+extern bool cross50;
+extern bool cross33;
+extern bool crossR;
 #endif // !stale
 
 class Wiezien
@@ -46,7 +49,7 @@ public:
 
 	std::string zapisz();
 	bool gra(Wiezien & obj,int tura, int r2);
-	void krzyzowanie(Wiezien & obj);
+	void krzyzowanie(Wiezien * obj);
 	int mutacja();
 	int wynik(int a);
 	Wiezien() : suma(0), gracze(liczbaGraczy),ruch(0),srednia(0),counter(0) {
